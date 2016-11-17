@@ -17,7 +17,7 @@
                 zone: document.getElementById(elementId),
                 mode: 'static',
                 position: {left: '50%', top: '50%'},
-                color: 'red'
+                color: 'black'
             });
             static.on("move", function(evt, data){
                 var myData = {
@@ -39,10 +39,10 @@
                 //calculate axis values
                 if(myData.xDirection == "left"){
                     if(myData.yDirection == "up"){
-                        myData.x = (data.distance/50) - (180 - data.angle.degree)/90;
+                        myData.x = -((data.distance/50) - (180 - data.angle.degree)/90);
                     }
                     if(myData.yDirection == "down"){
-                        myData.x = ( data.distance/50) + (180 - data.angle.degree)/90;
+                        myData.x = -((data.distance/50) + (180 - data.angle.degree)/90);
                     }
                 }
                 if(myData.xDirection == "right"){
@@ -50,23 +50,23 @@
                         myData.x = (data.distance/50) + (0 - data.angle.degree)/90;
                     }
                     if(myData.yDirection == "down"){
-                        myData.x = ( data.distance/50) - (360 - data.angle.degree)/90;
+                        myData.x = (data.distance/50) - (360 - data.angle.degree)/90;
                     }
                 }
                 if(myData.yDirection == "up"){
                     if(myData.xDirection == "left"){
-                        myData.y = ( data.distance/50) - (-(90 - data.angle.degree)/90);
+                        myData.y = (data.distance/50) - (-(90 - data.angle.degree)/90);
                     }
                     if(myData.xDirection == "right"){
-                        myData.y = ( data.distance/50) - (90 - data.angle.degree)/90;
+                        myData.y = (data.distance/50) - (90 - data.angle.degree)/90;
                     }
                 }
                 if(myData.yDirection == "down"){
                     if(myData.xDirection == "left"){
-                        myData.y = ( data.distance/50) - (270 - data.angle.degree)/90;
+                        myData.y = -((data.distance/50) - (270 - data.angle.degree)/90);
                     }
                     if(myData.xDirection == "right"){
-                        myData.y = ( data.distance/50) - (-(270 - data.angle.degree)/90);
+                        myData.y = -((data.distance/50) - (-(270 - data.angle.degree)/90));
                     }
                 }
                 moveHandler(myData);
