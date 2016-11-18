@@ -173,6 +173,14 @@ describe("Calculate direction strength.", function(){
             expect(myData.xDirection).toBe("right");
             expect(myData.x).toBe(0.25);
         });
+
+        it("angle:89.9deg, distance:50 is x:0", function() {
+            data.angle.degree = 89.9;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("right");
+            expect(myData.x).toBe(0.0022222222222221255);
+        });
     });
 
     describe("right down", function(){

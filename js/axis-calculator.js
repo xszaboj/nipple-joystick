@@ -54,7 +54,7 @@ function calculateAxisData(data){
                 angleDownSize = (0 + data.angle.degree)/45;
             }
             if(data.angle.degree > 45){
-                angleDownSize = (90 - data.angle.degree)/45;
+                angleDownSize = 1-(90-data.angle.degree)/45;
             }
             if(data.angle.degree == 45){
                 angleDownSize = 0;
