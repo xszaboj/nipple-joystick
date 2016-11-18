@@ -8,28 +8,74 @@ function calculateAxisData(data){
     if( (data.angle.degree >= 0 && data.angle.degree < 90) || (data.angle.degree <= 360 && data.angle.degree > 270) ){
             myData.xDirection = "right";
     }
-    if(data.angle.degree > 180){
+    if(data.angle.degree > 180 && data.angle.degree < 360){
         myData.yDirection = "down";
     }
-    if(data.angle.degree < 180){
+    if(data.angle.degree > 0 && data.angle.degree < 180){
         myData.yDirection = "up";
     }
 
     //calculate axis values
     if(myData.xDirection == "left"){
         if(myData.yDirection == "up"){
-            myData.x = -((data.distance/50) - (180 - data.angle.degree)/90);
+            var angleDownSize = 0;
+            if(data.angle.degree < 135){
+                angleDownSize = (135 - data.angle.degree)/45;
+            }
+            if(data.angle.degree > 135){
+                angleDownSize = (data.angle.degree - 135)/45;
+            }
+            if(data.angle.degree == 135){
+                angleDownSize = 0;
+            }
+            myData.x = -(data.distance/50) * (1 - angleDownSize);
         }
         if(myData.yDirection == "down"){
-            myData.x = -((data.distance/50) + (180 - data.angle.degree)/90);
+            var angleDownSize = 0;
+            if(data.angle.degree < 225){
+                angleDownSize = (225 - data.angle.degree)/45;
+            }
+            if(data.angle.degree > 225){
+                angleDownSize = (data.angle.degree- 225)/45;
+            }
+            if(data.angle.degree == 225){
+                angleDownSize = 0;
+            }
+            myData.x = -(data.distance/50) * (1 - angleDownSize);
+        }
+        if(myData.yDirection != "up" && myData.yDirection != "down"){
+            myData.x = -(data.distance/50);
         }
     }
     if(myData.xDirection == "right"){
         if(myData.yDirection == "up"){
-            myData.x = (data.distance/50) + (0 - data.angle.degree)/90;
+            var angleDownSize = 0;
+            if(data.angle.degree < 45){
+                angleDownSize = (0 + data.angle.degree)/45;
+            }
+            if(data.angle.degree > 45){
+                angleDownSize = (90 - data.angle.degree)/45;
+            }
+            if(data.angle.degree == 45){
+                angleDownSize = 0;
+            }
+            myData.x = (data.distance/50) * (1 - angleDownSize);
         }
         if(myData.yDirection == "down"){
-            myData.x = (data.distance/50) - (360 - data.angle.degree)/90;
+            var angleDownSize = 0;
+            if(data.angle.degree > 315){
+                angleDownSize = (360 - data.angle.degree)/45;
+            }
+            if(data.angle.degree < 315){
+                angleDownSize = (data.angle.degree- 270)/45;
+            }
+            if(data.angle.degree == 315){
+                angleDownSize = 0;
+            }
+            myData.x = (data.distance/50) * (1 - angleDownSize);
+        }
+        if(myData.yDirection != "up" && myData.yDirection != "down"){
+            myData.x = (data.distance/50);
         }
     }
     if(myData.yDirection == "up"){
