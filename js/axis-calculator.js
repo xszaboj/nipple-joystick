@@ -64,7 +64,7 @@ function calculateAxisData(data){
         if(myData.yDirection == "down"){
             var angleDownSize = 0;
             if(data.angle.degree > 315){
-                angleDownSize = (360 - data.angle.degree)/45;
+                angleDownSize = 1-(360 - data.angle.degree)/45;
             }
             if(data.angle.degree < 315){
                 angleDownSize = (data.angle.degree- 270)/45;

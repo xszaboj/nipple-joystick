@@ -263,6 +263,14 @@ describe("Calculate direction strength.", function(){
             expect(myData.xDirection).toBe("right");
             expect(myData.x).toBe(0.25);
         });
+
+        it("angle:359.9deg, distance:50 is x:0", function() {
+            data.angle.degree = 359.9;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("right");
+            expect(myData.x).toBe(0.0022222222222226806);
+        });
     });
 
     describe("left up", function(){
@@ -345,6 +353,22 @@ describe("Calculate direction strength.", function(){
             expect(myData.xDirection).toBe("left");
             expect(myData.x).toBe(-0.25);
         });
+
+        it("angle:90.1deg, distance:50 is x:0", function() {
+            data.angle.degree = 90.1;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("left");
+            expect(myData.x).toBe(-0.0022222222222221255);
+        });
+
+        it("angle:180.1deg, distance:50 is x:0", function() {
+            data.angle.degree = 180.1;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("left");
+            expect(myData.x).toBe(-0.0022222222222221255);
+        });
     });
 
     describe("left down", function(){
@@ -426,6 +450,22 @@ describe("Calculate direction strength.", function(){
             var myData = calculateAxisData(data);
             expect(myData.xDirection).toBe("left");
             expect(myData.x).toBe(-0.25);
+        });
+
+        it("angle:180.1deg, distance:50 is x:0", function() {
+            data.angle.degree = 180.1;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("left");
+            expect(myData.x).toBe(-0.0022222222222221255);
+        });
+
+        it("angle:269.9deg, distance:50 is x:0", function() {
+            data.angle.degree = 269.9;
+            data.distance = 50;
+            var myData = calculateAxisData(data);
+            expect(myData.xDirection).toBe("left");
+            expect(myData.x).toBe(-0.0022222222222226806);
         });
     });
 
