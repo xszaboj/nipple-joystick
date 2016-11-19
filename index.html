@@ -15,8 +15,8 @@
     <div>
         <h1>Data</h1>
         <div>
-            <div><span>x:</span><span id="x-val"></span></div>
-            <div><span>y:</span><span id="y-val"></span></div>
+            <div><span>x:</span><span id="x-val">0</span></div>
+            <div><span>y:</span><span id="y-val">0</span></div>
         </div>
     <div>
     <script src="./js/nipplejs.min.js"></script>
@@ -26,40 +26,33 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
     <script>
-        var xstaticNipple = function(elementId, moveHandler){
+        var staticNipple = function(elementId, leftcord, moveHandler, endHandler){
             var static = nipplejs.create({
                 zone: document.getElementById(elementId),
                 mode: 'static',
-                position: {left: '20%', top: '50%'},
+                position: {left: leftcord+'%', top: '50%'},
                 color: 'black'
             });
             static.on("move", function(evt, data){
                 var myData = calculateAxisData(data);
                 moveHandler(myData);
             });
-        }
 
-        var ystaticNipple = function(elementId, moveHandler){
-            var static = nipplejs.create({
-                zone: document.getElementById(elementId),
-                mode: 'static',
-                position: {left: '70%', top: '50%'},
-                color: 'black'
-            });
-            static.on("move", function(evt, data){
-                var myData = calculateAxisData(data);
-                moveHandler(myData);
+            static.on("end", function(evt, data){
+                endHandler();
             });
         }
 
-        var xjoystick = xstaticNipple("xstatic", function(data){
-            console.log(data);
+        var xjoystick = staticNipple("xstatic",30 , function(data){
             $("#x-val").text(data.x);
+        }, function(){
+            $("#x-val").text(0);
         });
 
-        var yjoystick = ystaticNipple("ystatic", function(data){
-            console.log(data);
+        var yjoystick = staticNipple("ystatic",70 , function(data){
             $("#y-val").text(data.y);
+        }, function(){
+            $("#y-val").text(0);
         })
     </script>
 </body>
