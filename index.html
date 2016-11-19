@@ -6,7 +6,10 @@
 </head>
 
 <body>
-    <div id="static">
+    <div id="xstatic">
+
+    </div>
+    <div id="ystatic">
 
     </div>
     <div>
@@ -23,11 +26,11 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
     <script>
-        var staticNipple = function(elementId, moveHandler){
+        var xstaticNipple = function(elementId, moveHandler){
             var static = nipplejs.create({
                 zone: document.getElementById(elementId),
                 mode: 'static',
-                position: {left: '50%', top: '50%'},
+                position: {left: '20%', top: '50%'},
                 color: 'black'
             });
             static.on("move", function(evt, data){
@@ -35,9 +38,27 @@
                 moveHandler(myData);
             });
         }
-        var joystick = staticNipple("static", function(data){
+
+        var ystaticNipple = function(elementId, moveHandler){
+            var static = nipplejs.create({
+                zone: document.getElementById(elementId),
+                mode: 'static',
+                position: {left: '70%', top: '50%'},
+                color: 'black'
+            });
+            static.on("move", function(evt, data){
+                var myData = calculateAxisData(data);
+                moveHandler(myData);
+            });
+        }
+
+        var xjoystick = xstaticNipple("xstatic", function(data){
             console.log(data);
             $("#x-val").text(data.x);
+        });
+
+        var yjoystick = ystaticNipple("ystatic", function(data){
+            console.log(data);
             $("#y-val").text(data.y);
         })
     </script>
