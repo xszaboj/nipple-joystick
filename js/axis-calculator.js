@@ -1,4 +1,4 @@
-function calculateAxisData(data){
+function determineDirections(data){
     var myData = {
         // {axis, value} kde to axis je int 0,1,.. a value od -1 do 1
     }
@@ -14,33 +14,33 @@ function calculateAxisData(data){
     if(data.angle.degree > 0 && data.angle.degree < 180){
         myData.yDirection = "up";
     }
+    return myData;
+}
 
-    //calculate axis values
+function calculateAxisData(data){
+    var myData = {};
+    myData.x = calculateHorizontalData(data).x;
+    myData.y = calculateVerticalData(data).y;
+    return myData;
+}
+
+function calculateHorizontalData(data){
+    var myData = {
+        // {axis, value} kde to axis je int 0,1,.. a value od -1 do 1
+    }
+    var directions = determineDirections(data);
+    myData.xDirection = directions.xDirection;
+    myData.yDirection = directions.yDirection;
+
     if(myData.xDirection == "left"){
         if(myData.yDirection == "up"){
             var angleDownSize = 0;
-            if(data.angle.degree < 135){
-                angleDownSize = (135 - data.angle.degree)/45;
-            }
-            if(data.angle.degree > 135){
-                angleDownSize = (data.angle.degree - 135)/45;
-            }
-            if(data.angle.degree == 135){
-                angleDownSize = 0;
-            }
+            angleDownSize = (180-data.angle.degree)/90
             myData.x = -(data.distance/50) * (1 - angleDownSize);
         }
         if(myData.yDirection == "down"){
             var angleDownSize = 0;
-            if(data.angle.degree < 225){
-                angleDownSize = (225 - data.angle.degree)/45;
-            }
-            if(data.angle.degree > 225){
-                angleDownSize = (data.angle.degree- 225)/45;
-            }
-            if(data.angle.degree == 225){
-                angleDownSize = 0;
-            }
+            angleDownSize = 1-(270-data.angle.degree)/90
             myData.x = -(data.distance/50) * (1 - angleDownSize);
         }
         if(myData.yDirection != "up" && myData.yDirection != "down"){
@@ -50,48 +50,57 @@ function calculateAxisData(data){
     if(myData.xDirection == "right"){
         if(myData.yDirection == "up"){
             var angleDownSize = 0;
-            if(data.angle.degree < 45){
-                angleDownSize = (0 + data.angle.degree)/45;
-            }
-            if(data.angle.degree > 45){
-                angleDownSize = 1-(90-data.angle.degree)/45;
-            }
-            if(data.angle.degree == 45){
-                angleDownSize = 0;
-            }
+            angleDownSize = 1-(90-data.angle.degree)/90;
             myData.x = (data.distance/50) * (1 - angleDownSize);
         }
         if(myData.yDirection == "down"){
             var angleDownSize = 0;
-            if(data.angle.degree > 315){
-                angleDownSize = 1-(360 - data.angle.degree)/45;
-            }
-            if(data.angle.degree < 315){
-                angleDownSize = (data.angle.degree- 270)/45;
-            }
-            if(data.angle.degree == 315){
-                angleDownSize = 0;
-            }
-            myData.x = (data.distance/50) * (1 - angleDownSize);
+            angleDownSize = (360 - data.angle.degree)/90;
+            myData.x = (data.distance/50) * (1-angleDownSize);
         }
         if(myData.yDirection != "up" && myData.yDirection != "down"){
             myData.x = (data.distance/50);
         }
     }
+    return myData;
+}
+
+function calculateVerticalData(data){
+    var myData = {
+        // {axis, value} kde to axis je int 0,1,.. a value od -1 do 1
+    }
+    var directions = determineDirections(data);
+    myData.xDirection = directions.xDirection;
+    myData.yDirection = directions.yDirection;
+
     if(myData.yDirection == "up"){
-        if(myData.xDirection == "left"){
-            myData.y = (data.distance/50) - (-(90 - data.angle.degree)/90);
-        }
         if(myData.xDirection == "right"){
-            myData.y = (data.distance/50) - (90 - data.angle.degree)/90;
+            var angleDownSize = 0;
+            angleDownSize = (90-data.angle.degree)/90;
+            myData.y = (data.distance/50) * (1 - angleDownSize);
+        }
+        if(myData.xDirection == "left"){
+            var angleDownSize = 0;
+            angleDownSize = (data.angle.degree-90)/90;
+            myData.y = (data.distance/50) * (1 - angleDownSize);
+        }
+        if(myData.xDirection != "left" && myData.xDirection != "right"){
+            myData.y = (data.distance/50);
         }
     }
     if(myData.yDirection == "down"){
         if(myData.xDirection == "left"){
-            myData.y = -((data.distance/50) - (270 - data.angle.degree)/90);
+            var angleDownSize = 0;
+            angleDownSize = (270-data.angle.degree)/90;
+            myData.y = -(data.distance/50) * (1 - angleDownSize);
         }
         if(myData.xDirection == "right"){
-            myData.y = -((data.distance/50) - (-(270 - data.angle.degree)/90));
+            var angleDownSize = 0;
+            angleDownSize = (data.angle.degree-270)/90;
+            myData.y = -(data.distance/50) * (1 - angleDownSize);
+        }
+        if(myData.xDirection != "left" && myData.xDirection != "right"){
+            myData.y = -(data.distance/50);
         }
     }
     return myData;

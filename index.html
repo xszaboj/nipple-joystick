@@ -9,9 +9,19 @@
     <div id="static">
 
     </div>
-
+    <div>
+        <h1>Data</h1>
+        <div>
+            <div><span>x:</span><span id="x-val"></span></div>
+            <div><span>y:</span><span id="y-val"></span></div>
+        </div>
+    <div>
     <script src="./js/nipplejs.min.js"></script>
     <script src="./js/axis-calculator.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
     <script>
         var staticNipple = function(elementId, moveHandler){
             var static = nipplejs.create({
@@ -27,6 +37,8 @@
         }
         var joystick = staticNipple("static", function(data){
             console.log(data);
+            $("#x-val").text(data.x);
+            $("#y-val").text(data.y);
         })
     </script>
 </body>
