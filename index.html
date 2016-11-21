@@ -15,8 +15,8 @@
     <div>
         <h1>Data</h1>
         <div>
-            <div><span>x:</span><span id="x-val">0</span></div>
-            <div><span>y:</span><span id="y-val">0</span></div>
+            <div><span>x:</span><span id="x-val">0</span><span> x-force:</span><span id="x-force">0</span></div>
+            <div><span>y:</span><span id="y-val">0</span><span> y-force:</span><span id="y-force">0</span></div>
         </div>
     <div>
     <script src="./js/nipplejs.min.js"></script>
@@ -35,7 +35,9 @@
             });
             static.on("move", function(evt, data){
                 var myData = calculateAxisData(data);
-                moveHandler(myData);
+                data.x = myData.x;
+                data.y = myData.y;
+                moveHandler(data);
             });
 
             static.on("end", function(evt, data){
@@ -45,14 +47,18 @@
 
         var xjoystick = staticNipple("xstatic",30 , function(data){
             $("#x-val").text(data.x);
+            $("#x-force").text(data.force);
         }, function(){
             $("#x-val").text(0);
+            $("#x-force").text(0);
         });
 
         var yjoystick = staticNipple("ystatic",70 , function(data){
             $("#y-val").text(data.y);
+            $("#y-force").text(data.force);
         }, function(){
             $("#y-val").text(0);
+            $("#y-force").text(0);
         })
     </script>
 </body>
